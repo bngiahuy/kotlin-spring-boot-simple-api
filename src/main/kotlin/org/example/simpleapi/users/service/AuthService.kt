@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service
 @Service
 interface AuthService {
     fun login(email: String, password: String): AuthDto
-    fun register(email: String, password: String): AuthDto
+    fun register(email: String, password: String, role: String): AuthDto
 }

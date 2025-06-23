@@ -38,7 +38,7 @@ class AuthController @Autowired constructor(
         @RequestBody registerRequest: RegisterRequest
     ): ResponseEntity<ApiResponse<AuthResponse>> {
         try {
-            val authDto = authService.register(registerRequest.email, registerRequest.password)
+            val authDto = authService.register(registerRequest.email, registerRequest.password, registerRequest.role)
             val authResponse = AuthResponse(token = authDto.token ?: "")
             return ResponseEntity.ok(ApiResponse(authResponse))
         } catch (e: IllegalArgumentException) {

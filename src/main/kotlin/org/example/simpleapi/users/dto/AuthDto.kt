@@ -1,8 +1,10 @@
 package org.example.simpleapi.users.dto
 
+
 data class RegisterRequest(
+    val email: String,
     val password: String,
-    val email: String
+    val role: String = "USER",
 )
 
 data class LoginRequest(

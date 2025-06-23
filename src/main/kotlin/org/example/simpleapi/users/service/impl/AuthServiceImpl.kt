@@ -33,15 +33,17 @@ class AuthServiceImpl (
         )
     }
 
-    override fun register(email: String, password: String): AuthDto {
+    override fun register(email: String, password: String, role: String): AuthDto {
         val existingAuth = usersRepo.findByEmail(email)
         if (existingAuth != null) {
             throw IllegalArgumentException("Email already registered")
         }
+        val validRole = Users.UserRole.entries.find { it.name.equals(role, ignoreCase = true) }
+            ?: throw IllegalArgumentException("Invalid role: $role")
         val user = Users(
             email = email,
             passwordHash = passwordEncoder.encode(password),
-            role = Users.UserRole.USER
+            role = validRole
         )
         val savedUser = usersRepo.save(user)
         val jwt = jwtService.generateToken(savedUser)
